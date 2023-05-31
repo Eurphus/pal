@@ -1,32 +1,28 @@
 package com.eurphus.discordpal;
 
-import io.github.cdimascio.dotenv.Dotenv;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
-import net.dv8tion.jda.api.sharding.DefaultShardManagerBuilder;
-import net.dv8tion.jda.api.sharding.ShardManager;
 
 import javax.security.auth.login.LoginException;
 import java.io.FileNotFoundException;
 
 public class Bot {
-    private final ShardManager shardManager;
-    private final Dotenv config;
 
-    public Bot() throws LoginException, FileNotFoundException {
-        config = Dotenv.configure().load();
+    public Bot() throws LoginException {
 
-        DefaultShardManagerBuilder builder = DefaultShardManagerBuilder.createDefault(config.get("TOKEN"));
-        builder.setStatus(OnlineStatus.ONLINE);
-        builder.setActivity(Activity.watching("DD Acceptances"));
-        shardManager = builder.build();
+        //private JDA bot = new JDABuilder().build();;
+        JDA bot = JDABuilder.createDefault(config.getToken())
+                .setStatus(OnlineStatus.ONLINE)
+                .setActivity(Activity.watching("DD Acceptances"))
+                .build();
+
     }
 
-    public ShardManager getShardManager() { return shardManager; }
-
-    public static void main(String[] args) {
+    public static void main(String[] args) throws LoginException {
         try {
-            Bot bot = new Bot();
+            new Bot();
         } catch (LoginException e) {
             System.out.println("Wrong Token. Silly");
         } catch(Exception e) {
