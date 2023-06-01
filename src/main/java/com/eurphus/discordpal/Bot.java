@@ -6,14 +6,13 @@ import net.dv8tion.jda.api.OnlineStatus;
 import net.dv8tion.jda.api.entities.Activity;
 
 import javax.security.auth.login.LoginException;
-import java.io.FileNotFoundException;
 
 public class Bot {
 
     public Bot() throws LoginException {
 
         //private JDA bot = new JDABuilder().build();;
-        JDA bot = JDABuilder.createDefault(config.getToken())
+        JDA bot = JDABuilder.createDefault(Config.getToken())
                 .setStatus(OnlineStatus.ONLINE)
                 .setActivity(Activity.watching("DD Acceptances"))
                 .build();
